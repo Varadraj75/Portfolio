@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Varad Raj Agrawal | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="https://polaris.school/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom CSS for animations and unique styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0D0D0D 0%, #1a202c 100%);
+            color: #e2e8f0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        /* Typing effect for the intro text */
+        .typing-text::after {
+            content: '|';
+            display: inline-block;
+            animation: blink-caret 0.75s step-end infinite;
+            color: #fbbf24; /* Yellow-400 */
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #fbbf24; }
+        }
+
+        /* Background code rain animation */
+        .background-animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .code-drop {
+            position: absolute;
+            font-family: 'monospace';
+            font-size: 0.8rem;
+            animation: fall linear infinite;
+            white-space: nowrap;
+            opacity: 0;
+            color: #63b3ed; /* Light Blue */
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100%); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(calc(100vh + 50px)); opacity: 0; }
+        }
+
+        /* Glow effect for cards */
+        .card-glow {
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); /* Cyan-400 glow */
+            transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+            border: 1px solid rgba(56, 189, 248, 0.1);
+        }
+        .card-glow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+        }
+
+        /* Neon Glass Effect for Skills */
+        .neon-glass-card {
+            background-color: rgba(45, 55, 72, 0.4);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid;
+            animation: neon-pulse 4s infinite alternate ease-in-out;
+        }
+
+        @keyframes neon-pulse {
+            from { box-shadow: 0 0 10px rgba(var(--neon-color-rgb), 0.7), inset 0 0 3px rgba(var(--neon-color-rgb), 0.4); }
+            to { box-shadow: 0 0 20px rgba(var(--neon-color-rgb), 1), inset 0 0 8px rgba(var(--neon-color-rgb), 0.6); }
+        }
+
+        .neon-java { border-color: #f87171; --neon-color-rgb: 248, 113, 113; }
+        .neon-python { border-color: #38bdf8; --neon-color-rgb: 56, 189, 248; }
+        .neon-web { border-color: #fbbf24; --neon-color-rgb: 251, 191, 36; }
+
+        .neon-glass-card i {
+            font-size: 3.5rem;
+            margin-bottom: 0.75rem;
+            filter: drop-shadow(0 0 5px currentColor);
+        }
+
+        .neon-glass-card span {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Project Card Styles */
+        .project-card {
+            background-color: rgba(26, 32, 44, 0.7);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: left;
+            transition: all 0.3s ease-in-out;
+            border: 1px solid #2d3748;
+        }
+        .project-card:hover {
+            border-color: #06b6d4; /* Cyan-500 */
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        .project-icon {
+            font-size: 2rem;
+            color: #06b6d4; /* Cyan-500 */
+            margin-bottom: 1rem;
+        }
+
+        /* Interactive Grid Styles */
+        #interactive-grid {
+            display: grid;
+            grid-template-columns: repeat(26, minmax(15px, 1fr));
+            grid-template-rows: repeat(7, minmax(15px, 1fr));
+            gap: 3px;
+            background-color: #1a202c;
+            border: 2px solid #4a5568;
+            border-radius: 8px;
+            padding: 8px;
+            width: fit-content;
+            margin: 0 auto;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .grid-cell {
+            width: 15px;
+            height: 15px;
+            background-color: #2d3748;
+            border-radius: 3px;
+            transition: background-color 0.2s ease-in-out, transform 0.2s;
+        }
+        .grid-cell:hover {
+            transform: scale(1.2);
+            background-color: #63b3ed;
+        }
+
+        .level-1 { background-color: #10B981; }
+        .level-2 { background-color: #3B82F6; }
+        .level-3 { background-color: #63B3ED; }
+        .level-4 { background-color: #fbbf24; }
+        .pixel-art-active { background-color: #f87171; }
+
+        .mode-buttons button {
+            background-color: #2d3748;
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+        .mode-buttons button.mode-button-active {
+            background-color: #06b6d4;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-[#0D0D0D] text-white font-sans">
+
+    <!-- Animated Background -->
+    <div id="code-rain-container" class="background-animation-container"></div>
+
+    <div class="relative z-10">
+        <!-- NAVBAR -->
+        <header class="flex justify-between items-center px-8 py-4 border-b border-gray-800 bg-[#0D0D0D]/50 backdrop-blur-sm sticky top-0 z-20">
+            <div class="flex items-center gap-3">
+                <a href="/">
+                    <img src="logo.png" class="h-10 w-auto" alt="Polaris Inspired Logo">
+                </a>
+                <span class="text-xl font-bold">
+                    <span class="text-yellow-400">Polaris</span> Inspired
+                </span>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm">
+                <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
+                <a href="#projects" class="hover:text-cyan-400 transition-colors">Projects</a>
+                <a href="#skills" class="hover:text-cyan-400 transition-colors">Skills</a>
+                <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
+            </nav>
+        </header>
+
+        <!-- HERO -->
+        <section class="text-center py-24 px-4">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-3">
+                <span class="text-yellow-400">Varad</span> Raj Agrawal
+            </h1>
+            <p class="text-xl text-gray-400 mb-8">Engineer less, builder more.</p>
+            <p id="intro-text" class="text-lg md:text-xl text-cyan-300 h-8 typing-text mx-auto max-w-2xl"></p>
+            <a href="#projects" class="mt-8 inline-block bg-cyan-500 hover:bg-cyan-600 text-black font-semibold px-8 py-3 rounded-full transition transform hover:scale-105">
+                Explore My Work
+            </a>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" class="max-w-4xl mx-auto px-6 py-16">
+            <div class="bg-[#1a202c]/60 p-8 rounded-xl card-glow">
+                <h2 class="text-3xl font-semibold mb-6 text-center text-cyan-400">About Me</h2>
+                <p class="text-gray-300 leading-relaxed text-center">
+                    I'm a passionate builder focused on learning by doing. While many chase theoretical perfection, I chase execution. I bring ideas to life through code — from Discord bots to tools that simplify everyday tasks. My journey started with school projects, and I'm now preparing to become a full-stack developer. A strong believer in startups, I draw inspiration from the culture of <span class="text-yellow-400">Polaris School of Technology</span> and wish to be part of such a dedicated ecosystem. I’m always open to improvement and value suggestions that help me grow further.
+                </p>
+            </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section id="skills" class="max-w-5xl mx-auto px-6 py-16">
+            <h2 class="text-3xl font-semibold mb-10 text-center text-cyan-400">My Tech Stack</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="neon-glass-card neon-java">
+                    <i class="fab fa-java text-red-400"></i>
+                    <span>Java</span>
+                </div>
+                <div class="neon-glass-card neon-python">
+                    <i class="fab fa-python text-sky-400"></i>
+                    <span>Python</span>
+                </div>
+                <div class="neon-glass-card neon-web">
+                    <i class="fas fa-code text-yellow-400"></i>
+                    <span>Web Basics</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects" class="bg-[#0D0D0D]/70 py-20 px-6">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-semibold mb-10 text-center text-cyan-400">Projects</h2>
+                <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                    <div class="project-card">
+                        <i class="fab fa-discord project-icon"></i>
+                        <h3 class="text-xl font-semibold mb-2">Discord News Bot</h3>
+                        <p class="text-gray-400 text-sm">Automates spreading real-time news updates across server channels. Integrated with news APIs to fetch and share trending headlines.</p>
+                    </div>
+                    <div class="project-card">
+                        <i class="fas fa-crop-alt project-icon"></i>
+                        <h3 class="text-xl font-semibold mb-2">Image Resizer</h3>
+                        <p class="text-gray-400 text-sm">A quick and efficient utility tool to resize images, built using Python’s PIL library.</p>
+                    </div>
+                    <div class="project-card">
+                        <i class="fas fa-sign-in-alt project-icon"></i>
+                        <h3 class="text-xl font-semibold mb-2">Java Login Page</h3>
+                        <p class="text-gray-400 text-sm">A GUI-based login page using Java Swing to demonstrate form handling and user authentication logic.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- INTERACTIVE GRID -->
+        <section class="py-20 px-6 text-center">
+             <h2 class="text-3xl font-semibold mb-4 text-cyan-400">My Building Journey</h2>
+             <p class="text-gray-400 mb-8 max-w-2xl mx-auto">This grid represents my coding activity and passion for building. Try the different modes!</p>
+             <div class="mb-6 mode-buttons flex justify-center gap-4">
+                <button id="mode-contributions" class="px-4 py-2 rounded-md text-white">Contributions</button>
+                <button id="mode-pixelArt" class="px-4 py-2 rounded-md text-white">Pixel Art</button>
+            </div>
+            <div id="interactive-grid"></div>
+        </section>
+
+
+        <!-- EDUCATION -->
+        <section class="bg-[#0D0D0D]/70 py-16 px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                 <h2 class="text-3xl font-semibold mb-6 text-cyan-400">Education</h2>
+                 <div class="bg-[#1a202c]/60 p-8 rounded-xl card-glow inline-block">
+                    <p class="text-gray-300 leading-relaxed">
+                        Completed high school from <strong>Sarala Birla Academy</strong>, scoring 81.2% in ISC board.
+                    </p>
+                     <p class="text-yellow-400 font-bold mt-2">School Topper in Computer Science (ISC)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" class="max-w-4xl mx-auto px-6 py-20 text-center">
+            <h2 class="text-3xl font-semibold mb-6 text-cyan-400">Contact Me</h2>
+            <div class="flex justify-center gap-8 flex-wrap">
+                <a href="tel:+919937438236" class="text-gray-300 hover:text-cyan-400 transition-colors">
+                    <i class="fas fa-phone mr-2"></i>+91 99374 38236
+                </a>
+                <a href="https://www.instagram.com/varadrajagrawal/" target="_blank" class="text-gray-300 hover:text-cyan-400 transition-colors">
+                    <i class="fab fa-instagram mr-2"></i>@varadrajagrawal
+                </a>
+            </div>
+        
+                <a href="mailto:agrawalvaradraj2007@gmail.com" class="text-gray-300 hover:text-cyan-400 transition-colors">
+                    <i class="fas fa-envelope mr-2"></i>agrawalvaradraj2007@gmail.com
+                </a>
+                <a href="https://github.com/Varadraj75" target="_blank" class="text-gray-300 hover:text-cyan-400 transition-colors">
+                    <i class="fab fa-github mr-2"></i>github.com/Varadraj75
+                </a>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+    
+        <footer class="text-center text-sm text-gray-600 py-8 border-t border-gray-800">
+            Inspired by <span class="text-yellow-400">Polaris School of Technology</span> • Built by Varad Raj Agrawal © 2025
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Animated Background ---
+            const codeRainContainer = document.getElementById('code-rain-container');
+            if (codeRainContainer) {
+                const codeCharacters = '01';
+                const createCodeDrop = () => {
+                    const drop = document.createElement('span');
+                    drop.classList.add('code-drop');
+                    drop.style.left = Math.random() * 100 + 'vw';
+                    drop.style.animationDuration = (Math.random() * 6 + 4) + 's';
+                    drop.style.animationDelay = (Math.random() * 5) + 's';
+                    drop.textContent = codeCharacters.charAt(Math.floor(Math.random() * codeCharacters.length));
+                    codeRainContainer.appendChild(drop);
+                    drop.addEventListener('animationend', () => { drop.remove(); });
+                };
+                for (let i = 0; i < 70; i++) {
+                    setTimeout(createCodeDrop, Math.random() * 2000);
+                }
+                setInterval(createCodeDrop, 300);
+            }
+
+            // --- Typing Effect ---
+            const introTextElement = document.getElementById('intro-text');
+            if(introTextElement) {
+                const fullIntroText = "I build things for the web and beyond.";
+                let introCharIndex = 0;
+                const typeIntroText = () => {
+                    if (introCharIndex < fullIntroText.length) {
+                        introTextElement.textContent += fullIntroText.charAt(introCharIndex);
+                        introCharIndex++;
+                        setTimeout(typeIntroText, 60);
+                    } else {
+                        introTextElement.classList.remove('typing-text');
+                    }
+                };
+                typeIntroText();
+            }
+
+            // --- Interactive Grid ---
+            const interactiveGrid = document.getElementById('interactive-grid');
+            const modeButtons = document.querySelectorAll('.mode-buttons button');
+            if (interactiveGrid && modeButtons.length > 0) {
+                const numRows = 7;
+                const numCols = 26;
+                let currentMode = 'contributions';
+
+                const createGrid = () => {
+                    interactiveGrid.innerHTML = '';
+                    for (let i = 0; i < numRows * numCols; i++) {
+                        const cell = document.createElement('div');
+                        cell.classList.add('grid-cell');
+                        interactiveGrid.appendChild(cell);
+                    }
+                };
+
+                const setContributionsMode = () => {
+                    const cells = interactiveGrid.children;
+                    for (let i = 0; i < cells.length; i++) {
+                        cells[i].className = 'grid-cell'; // Reset classes
+                        const level = Math.floor(Math.random() * 5);
+                        if (Math.random() > 0.3) { // 70% chance of being active
+                           if (level === 1) cells[i].classList.add('level-1');
+                           else if (level === 2) cells[i].classList.add('level-2');
+                           else if (level === 3) cells[i].classList.add('level-3');
+                           else if (level === 4) cells[i].classList.add('level-4');
+                        }
+                    }
+                };
+
+                const setPixelArtMode = () => {
+                    const cells = interactiveGrid.children;
+                    for (let i = 0; i < cells.length; i++) {
+                        cells[i].className = 'grid-cell';
+                        cells[i].addEventListener('click', (e) => {
+                            if (currentMode === 'pixelArt') {
+                                e.target.classList.toggle('pixel-art-active');
+                            }
+                        });
+                    }
+                };
+
+                const switchMode = (newMode) => {
+                    currentMode = newMode;
+                    modeButtons.forEach(button => {
+                        button.classList.remove('mode-button-active');
+                        if (button.id === `mode-${newMode}`) {
+                            button.classList.add('mode-button-active');
+                        }
+                    });
+
+                    createGrid();
+                    if (newMode === 'contributions') {
+                        setContributionsMode();
+                    } else if (newMode === 'pixelArt') {
+                        setPixelArtMode();
+                    }
+                };
+                
+                modeButtons.forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const newMode = e.target.id.replace('mode-', '');
+                        switchMode(newMode);
+                    });
+                });
+
+                // Initial setup
+                switchMode('contributions');
+            }
+        });
+    </script>
+</body>
+</html>
